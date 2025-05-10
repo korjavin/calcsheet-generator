@@ -197,3 +197,6 @@ header h1 {
         page-break-inside: avoid; /* Try to keep control sum with content */
     }
 }
+.hidden {
+  display: none !important;
+}

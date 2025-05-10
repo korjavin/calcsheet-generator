@@ -157,6 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // window.history.pushState({ path: newUrl }, '', newUrl);
 
             displayProblems(count, digits);
+
+            const configurationSection = document.getElementById('configuration-section');
+            if (configurationSection) {
+                configurationSection.classList.add('hidden');
+            }
         });
     } else {
         console.warn('Configuration input fields or button not found. Using defaults or URL params for initial generation.');
