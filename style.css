@@ -1,0 +1,199 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for potentially long sheets */
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sheet-container {
+    background-color: #fff;
+    padding: 30mm 20mm; /* Generous padding */
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 210mm; /* Approx A4 width */
+    min-height: 297mm; /* Approx A4 height, though content will dictate actual */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+}
+
+header h1 {
+    margin: 0;
+    color: #333;
+    font-size: 2.5em; /* Larger title */
+}
+
+#problems-section {
+    flex-grow: 1; /* Allows this section to take up available space */
+    margin-bottom: 20px;
+}
+
+#problems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px 15px; /* Row gap, Column gap */
+    /* Placeholder styling for problem items - will be refined later */
+    min-height: 150px; /* Ensure it has some height even when empty */
+}
+
+/* Individual Problem Styling */
+.problem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align numbers to the right for math problems */
+    font-family: 'Courier New', Courier, monospace; /* Monospaced font for alignment */
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid #eee;
+    background-color: #fdfdfd;
+}
+
+.problem .operand1,
+.problem .operator-operand2 {
+    padding: 2px 5px;
+    width: 100%; /* Ensure they take full width for text-align to work */
+    text-align: right;
+}
+
+.problem .operator-operand2 {
+    border-bottom: 2px solid #333; /* The line for calculation */
+    margin-bottom: 5px; /* Space between line and answer space */
+}
+
+.problem .problem-line { /* This class is not strictly needed if border-bottom on operator-operand2 is used */
+    display: none; /* Or style as a visible hr if preferred over border */
+}
+
+.problem .answer-space {
+    min-height: 1.5em; /* Space for writing the answer */
+    width: 100%;
+    text-align: right;
+    padding: 2px 5px;
+    /* background-color: #e9e9e9; */ /* Optional: to highlight answer area */
+}
+
+/* Configuration Section Styling */
+#configuration-section {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#configuration-section h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #444;
+}
+
+#configuration-section div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#configuration-section label {
+    font-weight: bold;
+    min-width: 180px; /* Align input fields */
+}
+
+#configuration-section input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80px; /* Fixed width for number inputs */
+    font-size: 1em;
+}
+
+#configuration-section button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    align-self: flex-start; /* Align button to the start of the flex container */
+}
+
+#configuration-section button:hover {
+    background-color: #0056b3;
+}
+/* Placeholder for individual problem styling (to be added when problems are generated)
+.problem-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: right;
+}
+*/
+
+#control-sum-section {
+    border-top: 2px solid #eee;
+    padding-top: 15px;
+    margin-top: auto; /* Pushes to the bottom if content is short */
+    font-size: 0.9em;
+    color: #555;
+}
+
+#control-sum-section p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#control-sum-value {
+    font-weight: bold;
+    color: #000;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    min-width: 30px; /* Ensure space for the number */
+    display: inline-block;
+    text-align: center;
+}
+
+#control-sum-instructions {
+    font-style: italic;
+    font-size: 0.85em;
+    color: #666;
+}
+
+/* Basic print-friendliness (more can be added via @media print) */
+@media print {
+    body {
+        background-color: #fff;
+        padding: 0;
+        margin: 0;
+    }
+    .sheet-container {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        max-width: 100%;
+        min-height: 0; /* Let content dictate height */
+        padding: 15mm 10mm; /* Adjust padding for print if needed */
+    }
+    header h1 {
+        font-size: 2em; /* Slightly smaller for print if needed */
+    }
+    #control-sum-section {
+        page-break-inside: avoid; /* Try to keep control sum with content */
+    }
+}

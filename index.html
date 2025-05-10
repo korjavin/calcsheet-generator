@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Practice Sheet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sheet-container">
+        <header>
+            <h1>Math Practice</h1>
+            <!-- Placeholder for animal picture/font -->
+        </header>
+
+        <section id="configuration-section">
+            <h2>Configuration</h2>
+            <div>
+                <label for="num-digits">Number of Digits (3 or 4):</label>
+                <input type="number" id="num-digits" name="num-digits" min="3" max="4" value="3">
+            </div>
+            <div>
+                <label for="num-problems">Number of Problems:</label>
+                <input type="number" id="num-problems" name="num-problems" min="1" value="15">
+            </div>
+            <button id="generate-sheet-btn">Generate Sheet</button>
+        </section>
+
+        <section id="problems-section">
+            <div id="problems-grid">
+                <!-- Problems will be generated here by JavaScript -->
+            </div>
+        </section>
+
+        <footer id="control-sum-section">
+            <p>Control Sum: <span id="control-sum-value">__</span></p>
+            <div id="control-sum-instructions">
+                <!-- Instructions for calculating control sum will go here -->
+            </div>
+        </footer>
+    </div>
+
+    <script src="math_generator.js" defer></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
