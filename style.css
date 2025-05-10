@@ -180,7 +180,10 @@ header h1 {
     body {
         background-color: #fff;
         padding: 0;
-        margin: 0;
+        margin-top: 0.5cm;    /* Reduced */
+        margin-bottom: 0.5cm; /* Reduced */
+        margin-left: 0.5cm;   /* Added */
+        margin-right: 0.5cm;  /* Added */
     }
     .sheet-container {
         border: none;
@@ -188,13 +191,46 @@ header h1 {
         margin: 0;
         max-width: 100%;
         min-height: 0; /* Let content dictate height */
-        padding: 15mm 10mm; /* Adjust padding for print if needed */
+        padding: 0.5cm;     /* Reduced, 0.5cm = 5mm */
+        font-size: 9pt;     /* Added base font size for print */
     }
     header h1 {
-        font-size: 2em; /* Slightly smaller for print if needed */
+        font-size: 18pt; /* Reduced font size */
     }
     #control-sum-section {
         page-break-inside: avoid; /* Try to keep control sum with content */
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    header { /* For header padding and margin in print */
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-bottom: 10px; /* Reduced */
+    }
+
+    #problems-grid {
+        gap: 5px; /* Reduced gap */
+    }
+
+    .problem {
+        padding: 2px; /* Reduced padding */
+        /* font-size will be 1.2em of .sheet-container's 9pt = 10.8pt, screen style is 1.2em */
+    }
+
+    .problem .operand1,
+    .problem .operator-operand2 {
+        font-size: 11pt; /* Specific font size for problem numbers */
+    }
+
+    #control-sum-section p {
+        font-size: 9pt; /* Reduced font size */
+        margin-bottom: 5px; /* Reduced space */
+    }
+
+    #control-sum-instructions {
+        font-size: 8pt; /* Reduced font size */
+        line-height: 1.2; /* Adjusted line height */
     }
 }
 .hidden {
