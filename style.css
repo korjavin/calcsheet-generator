@@ -1,94 +1,93 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    font-family: sans-serif;
-    margin: 0;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align to top for potentially long sheets */
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
+  font-family: sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  margin: 20px; /* As per instruction for screen style after reset */
+  /* display: flex, justify-content: center, align-items: flex-start, min-height: 100vh from original body are removed
+     as body margin and sheet-container margin:auto will handle spacing and centering */
 }
 
 .sheet-container {
     background-color: #fff;
-    padding: 30mm 20mm; /* Generous padding */
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 210mm; /* Approx A4 width */
-    min-height: 297mm; /* Approx A4 height, though content will dictate actual */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    padding: 20px; /* As per instruction for screen style after reset (original was 30mm 20mm) */
+    margin: 20px auto; /* As per instruction for screen style after reset, for centering */
+    max-width: 210mm; /* Approx A4 width (kept from original) */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Kept from original */
+    border: 1px solid #ccc; /* Kept from original */
+    min-height: 297mm; /* Approx A4 height (kept from original) */
+    display: flex; /* Kept from original, for internal layout */
+    flex-direction: column; /* Kept from original, for internal layout */
 }
 
 header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Restored */
     border-bottom: 2px solid #eee;
-    padding-bottom: 15px;
+    padding-bottom: 15px; /* Restored */
 }
 
 header h1 {
-    margin: 0;
+    /* margin: 0; is covered by global reset */
     color: #333;
-    font-size: 2.5em; /* Larger title */
+    font-size: 2.5em;
 }
 
 #problems-section {
-    flex-grow: 1; /* Allows this section to take up available space */
-    margin-bottom: 20px;
+    flex-grow: 1;
+    margin-bottom: 20px; /* Restored */
 }
 
 #problems-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 20px 15px; /* Row gap, Column gap */
-    /* Placeholder styling for problem items - will be refined later */
-    min-height: 150px; /* Ensure it has some height even when empty */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 15px;
+    min-height: 150px;
 }
 
-/* Individual Problem Styling */
 .problem {
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Align numbers to the right for math problems */
-    font-family: 'Courier New', Courier, monospace; /* Monospaced font for alignment */
+    align-items: flex-end;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 1.2em;
-    padding: 10px;
+    padding: 10px; /* Restored */
     border: 1px solid #eee;
     background-color: #fdfdfd;
 }
 
 .problem .operand1,
 .problem .operator-operand2 {
-    padding: 2px 5px;
-    width: 100%; /* Ensure they take full width for text-align to work */
+    padding: 2px 5px; /* Restored */
+    width: 100%;
     text-align: right;
 }
 
 .problem .operator-operand2 {
-    border-bottom: 2px solid #333; /* The line for calculation */
-    margin-bottom: 5px; /* Space between line and answer space */
+    border-bottom: 2px solid #333;
+    margin-bottom: 5px; /* Restored */
 }
 
-.problem .problem-line { /* This class is not strictly needed if border-bottom on operator-operand2 is used */
-    display: none; /* Or style as a visible hr if preferred over border */
+.problem .problem-line {
+    display: none;
 }
 
 .problem .answer-space {
-    min-height: 1.5em; /* Space for writing the answer */
+    min-height: 1.5em;
     width: 100%;
     text-align: right;
-    padding: 2px 5px;
-    /* background-color: #e9e9e9; */ /* Optional: to highlight answer area */
+    padding: 2px 5px; /* Restored */
 }
 
-/* Configuration Section Styling */
 #configuration-section {
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 15px; /* Restored */
+    margin-bottom: 20px; /* Restored */
     border: 1px dashed #ccc;
     background-color: #f9f9f9;
     display: flex;
@@ -97,8 +96,8 @@ header h1 {
 }
 
 #configuration-section h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
+    /* margin-top: 0; is covered by global reset */
+    margin-bottom: 10px; /* Restored */
     font-size: 1.5em;
     color: #444;
 }
@@ -111,19 +110,19 @@ header h1 {
 
 #configuration-section label {
     font-weight: bold;
-    min-width: 180px; /* Align input fields */
+    min-width: 180px;
 }
 
 #configuration-section input[type="number"] {
-    padding: 8px;
+    padding: 8px; /* Restored */
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 80px; /* Fixed width for number inputs */
+    width: 80px;
     font-size: 1em;
 }
 
 #configuration-section button {
-    padding: 10px 15px;
+    padding: 10px 15px; /* Restored */
     background-color: #007bff;
     color: white;
     border: none;
@@ -131,40 +130,33 @@ header h1 {
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s ease;
-    align-self: flex-start; /* Align button to the start of the flex container */
+    align-self: flex-start;
 }
 
 #configuration-section button:hover {
     background-color: #0056b3;
 }
-/* Placeholder for individual problem styling (to be added when problems are generated)
-.problem-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: right;
-}
-*/
 
 #control-sum-section {
     border-top: 2px solid #eee;
-    padding-top: 15px;
-    margin-top: auto; /* Pushes to the bottom if content is short */
+    padding-top: 15px; /* Restored */
+    margin-top: auto; /* Kept */
     font-size: 0.9em;
     color: #555;
 }
 
 #control-sum-section p {
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Restored */
     font-weight: bold;
 }
 
 #control-sum-value {
     font-weight: bold;
     color: #000;
-    padding: 2px 5px;
+    padding: 2px 5px; /* Restored */
     border: 1px solid #ccc;
     background-color: #f9f9f9;
-    min-width: 30px; /* Ensure space for the number */
+    min-width: 30px;
     display: inline-block;
     text-align: center;
 }
@@ -175,64 +167,71 @@ header h1 {
     color: #666;
 }
 
-/* Basic print-friendliness (more can be added via @media print) */
 @media print {
     body {
         background-color: #fff;
-        padding: 0;
-        margin-top: 0.5cm;    /* Reduced */
-        margin-bottom: 0.5cm; /* Reduced */
-        margin-left: 0.5cm;   /* Added */
-        margin-right: 0.5cm;  /* Added */
-    }
-    .sheet-container {
-        border: none;
-        box-shadow: none;
-        margin: 0;
-        max-width: 100%;
-        min-height: 0; /* Let content dictate height */
-        padding: 0.5cm;     /* Reduced, 0.5cm = 5mm */
-        font-size: 9pt;     /* Added base font size for print */
-    }
-    header h1 {
-        font-size: 18pt; /* Reduced font size */
-    }
-    #control-sum-section {
-        page-break-inside: avoid; /* Try to keep control sum with content */
-        padding-top: 5px;
-        padding-bottom: 5px;
+        margin: 5mm; /* Adjusted from original 0.5cm per side */
+        /* padding: 0; is covered by global reset */
+        -webkit-print-color-adjust: exact; /* Added for better print fidelity */
+        print-color-adjust: exact; /* Added for better print fidelity */
     }
 
-    header { /* For header padding and margin in print */
-        padding-top: 5px;
-        padding-bottom: 5px;
-        margin-bottom: 10px; /* Reduced */
+    .sheet-container {
+        border: none; /* Kept from original print */
+        box-shadow: none; /* Kept from original print */
+        margin: 0 auto; /* Updated for centering within body margins */
+        padding: 5mm;     /* Kept from original print (0.5cm) */
+        font-size: 9pt;   /* Kept from original print */
+
+        width: 210mm; /* Explicit A4 width as base for scaling */
+        height: 277mm; /* Added: A4 height minus margins */
+        max-height: 277mm; /* Added */
+        overflow: hidden; /* Added to clip content */
+        transform: scale(0.97); /* Added for scaling */
+        transform-origin: top center; /* Added for scaling origin */
+    }
+
+    header {
+        padding-top: 5px; /* Kept from original print */
+        padding-bottom: 5px; /* Kept from original print */
+        margin-bottom: 10px; /* Kept from original print */
+    }
+
+    header h1 {
+        font-size: 18pt; /* Kept from original print */
     }
 
     #problems-grid {
-        gap: 5px; /* Reduced gap */
+        gap: 5px; /* Kept from original print */
     }
 
     .problem {
-        padding: 2px; /* Reduced padding */
-        /* font-size will be 1.2em of .sheet-container's 9pt = 10.8pt, screen style is 1.2em */
+        padding: 2px; /* Kept from original print */
+        /* font-size will be 1.2em of .sheet-container's 9pt = 10.8pt */
     }
 
     .problem .operand1,
     .problem .operator-operand2 {
-        font-size: 11pt; /* Specific font size for problem numbers */
+        font-size: 11pt; /* Kept from original print */
+    }
+
+    #control-sum-section {
+        page-break-inside: avoid; /* Kept from original print */
+        padding-top: 5px; /* Kept from original print */
+        padding-bottom: 5px; /* Kept from original print */
     }
 
     #control-sum-section p {
-        font-size: 9pt; /* Reduced font size */
-        margin-bottom: 5px; /* Reduced space */
+        font-size: 9pt; /* Kept from original print */
+        margin-bottom: 5px; /* Kept from original print */
     }
 
     #control-sum-instructions {
-        font-size: 8pt; /* Reduced font size */
-        line-height: 1.2; /* Adjusted line height */
+        font-size: 8pt; /* Kept from original print */
+        line-height: 1.2; /* Kept from original print */
     }
 }
+
 .hidden {
   display: none !important;
 }
