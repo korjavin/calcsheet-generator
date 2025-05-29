@@ -180,9 +180,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Clamp digits to 3 or 4
-    if (initialDigits !== 3 && initialDigits !== 4) {
-        initialDigits = 3;
+    // Mode-aware clamping for initialDigits
+    if (initialMode === "multiplication") {
+        if (initialDigits < 2 || initialDigits > 4) {
+            initialDigits = 2; // Default for multiplication if out of range (2, 3, 4)
+        }
+    } else { // For "addition", "subtraction", "mixed"
+        if (initialDigits !== 3 && initialDigits !== 4) {
+            initialDigits = 3; // Default for these modes if not 3 or 4
+        }
     }
     if (initialCount < 1) {
         initialCount = 1;
