@@ -1,9 +1,5 @@
 // app.js - Client-side logic for Calcsheet Generator
-import { 
-    generateAdditionProblem, 
-    generateSubtractionProblem, 
-    generateMultiplicationProblem 
-} from './math_generator.js';
+import * as MathGen from './math_generator.js';
 
 /**
  * Calculates the sum of the digits of a given number.
@@ -83,12 +79,12 @@ function displayProblems(numProblems = 15, numDigits = 3, operationMode = "mixed
 
         switch (currentMode) {
             case "addition":
-                problemData = generateAdditionProblem(numDigits);
+                problemData = MathGen.generateAdditionProblem(numDigits);
                 operatorSymbol = '+';
                 correctAnswer = problemData.sum;
                 break;
             case "subtraction":
-                problemData = generateSubtractionProblem(numDigits);
+                problemData = MathGen.generateSubtractionProblem(numDigits);
                 operatorSymbol = '−'; // Using minus sign, not hyphen
                 correctAnswer = problemData.difference;
                 break;
@@ -105,14 +101,14 @@ function displayProblems(numProblems = 15, numDigits = 3, operationMode = "mixed
                 if (numDigits < 2) multNumDigits = 2; // Default to 2 if global numDigits is too small
                 if (numDigits > 4) multNumDigits = 4; // Default to 4 if global numDigits is too large (though UI prevents this)
 
-                problemData = generateMultiplicationProblem(multNumDigits);
+                problemData = MathGen.generateMultiplicationProblem(multNumDigits);
                 operatorSymbol = '×'; // Using multiplication sign
                 correctAnswer = problemData.product;
                 break;
             default:
                 console.error("Unknown operation mode:", currentMode);
                 // Fallback to addition
-                problemData = generateAdditionProblem(numDigits);
+                problemData = MathGen.generateAdditionProblem(numDigits);
                 operatorSymbol = '+';
                 correctAnswer = problemData.sum;
         }
