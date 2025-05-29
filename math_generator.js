@@ -3,7 +3,7 @@
  * @param {number} n - The number of digits.
  * @returns {number} A random n-digit number.
  */
-function generateRandomNDigitNumber(n) {
+export function generateRandomNDigitNumber(n) {
   if (n <= 0) {
     throw new Error("Number of digits must be positive.");
   }
@@ -17,7 +17,7 @@ function generateRandomNDigitNumber(n) {
  * @param {number} numDigits - The number of digits for the operands (3 or 4).
  * @returns {object} An object like { operand1, operand2, sum }.
  */
-function generateAdditionProblem(numDigits) {
+export function generateAdditionProblem(numDigits) {
   if (numDigits !== 3 && numDigits !== 4) {
     throw new Error("Number of digits must be 3 or 4 for addition problems.");
   }
@@ -56,7 +56,7 @@ function generateAdditionProblem(numDigits) {
  * @param {number} numDigits - The number of digits for the operands (3 or 4).
  * @returns {object} An object like { operand1, operand2, difference }.
  */
-function generateSubtractionProblem(numDigits) {
+export function generateSubtractionProblem(numDigits) {
   if (numDigits !== 3 && numDigits !== 4) {
     throw new Error("Number of digits must be 3 or 4 for subtraction problems.");
   }
@@ -184,6 +184,34 @@ function generateSubtractionProblem(numDigits) {
 
   }
   return { operand1, operand2, difference };
+}
+
+/**
+ * Generates a multiplication problem.
+ * @param {number} numDigits - The number of digits for the first operand.
+ *                           The second operand will be 1-digit if numDigits is 3 or 4.
+ *                           The second operand can be 1 or 2-digits if numDigits is 2.
+ * @returns {object} An object like { operand1, operand2, product }.
+ */
+export function generateMultiplicationProblem(numDigits) {
+  if (numDigits < 2 || numDigits > 4) {
+    throw new Error("Number of digits for the first operand must be 2, 3, or 4 for multiplication problems.");
+  }
+
+  const operand1 = generateRandomNDigitNumber(numDigits);
+  let operand2;
+
+  if (numDigits === 3 || numDigits === 4) {
+    // Second operand is a single-digit number (1-9)
+    operand2 = Math.floor(Math.random() * 9) + 1;
+  } else { // numDigits === 2
+    // Second operand can be 1 or 2 digits
+    const secondOperandDigits = Math.floor(Math.random() * 2) + 1; // 1 or 2
+    operand2 = generateRandomNDigitNumber(secondOperandDigits);
+  }
+
+  const product = operand1 * operand2;
+  return { operand1, operand2, product };
 }
 
 // Example Usage (for testing - not part of the final deliverable for this task)

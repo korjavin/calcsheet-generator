@@ -51,6 +51,10 @@ header h1 {
     min-height: 150px;
 }
 
+#problems-grid.two-columns-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
 .problem {
     display: flex;
     flex-direction: column;
