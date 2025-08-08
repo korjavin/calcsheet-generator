@@ -41,13 +41,11 @@ function calculateControlSum(answersArray) {
  * @param {number} numProblems - The total number of problems to generate.
  * @param {number} numDigits - The number of digits for the operands in the problems (e.g., 3 or 4).
  * @param {string} operationMode - The selected operation mode ("addition", "subtraction", "multiplication", "mixed").
- * @param {object} multOptions - Options for multiplication mode.
  */
-function displayProblems(numProblems = 15, numDigits = 3, operationMode = "mixed", multOptions = {}) {
+function displayProblems(numProblems = 15, numDigits = 3, operationMode = "mixed") {
     const problemsGrid = document.getElementById('problems-grid');
     const controlSumValueEl = document.getElementById('control-sum-value');
     const controlSumInstructionsEl = document.getElementById('control-sum-instructions');
-    const controlSumSection = document.getElementById('control-sum-section');
 
     if (!problemsGrid || !controlSumValueEl || !controlSumInstructionsEl) {
         console.error('Required DOM elements not found!');
@@ -56,35 +54,6 @@ function displayProblems(numProblems = 15, numDigits = 3, operationMode = "mixed
 
     // Clear existing problems
     problemsGrid.innerHTML = '';
-    controlSumSection.classList.remove('hidden');
-
-
-    if (operationMode === 'multiplication') {
-        const { percentHints, multiplicatorRange } = multOptions;
-        const rangeParts = multiplicatorRange.split('..').map(s => parseInt(s.trim(), 10));
-        const min = rangeParts[0];
-        const max = rangeParts[1];
-
-        const tableData = MathGen.generateMultiplicationTable(min, max, percentHints);
-
-        const table = document.createElement('table');
-        table.classList.add('multiplication-table');
-
-        for (let i = 0; i < tableData.length; i++) {
-            const row = document.createElement('tr');
-            for (let j = 0; j < tableData[i].length; j++) {
-                const cell = document.createElement('td');
-                cell.textContent = tableData[i][j];
-                row.appendChild(cell);
-            }
-            table.appendChild(row);
-        }
-        problemsGrid.appendChild(table);
-        controlSumSection.classList.add('hidden');
-        return;
-    }
-
-
     const correctAnswers = [];
     let hasMultiplicationProblem = false; // Track if any multiplication problem is generated
 
@@ -226,76 +195,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const numProblemsInput = document.getElementById('num-problems');
     const operationModeInput = document.getElementById('operation-mode');
     const generateSheetButton = document.getElementById('generate-sheet-btn');
-    const commonSettings = document.getElementById('common-settings');
-    const multiplicationSettings = document.getElementById('multiplication-settings');
-    const problemsGrid = document.getElementById('problems-grid');
 
-    function toggleSettings(mode) {
-        console.log(`Toggling settings for mode: ${mode}`);
-        if (mode === 'multiplication') {
-            commonSettings.classList.add('hidden');
-            multiplicationSettings.classList.remove('hidden');
-        } else {
-            commonSettings.classList.remove('hidden');
-            multiplicationSettings.classList.add('hidden');
-        }
-    }
-
-    operationModeInput.addEventListener('change', (event) => {
-        const mode = event.target.value;
-        problemsGrid.innerHTML = '';
-        toggleSettings(mode);
-    });
+    console.log("MOCK_APP_DEBUG: numDigitsInput found?", !!numDigitsInput);
+    console.log("MOCK_APP_DEBUG: numProblemsInput found?", !!numProblemsInput);
+    console.log("MOCK_APP_DEBUG: operationModeInput found?", !!operationModeInput);
+    console.log("MOCK_APP_DEBUG: generateSheetButton found?", !!generateSheetButton);
 
     if (numDigitsInput && numProblemsInput && operationModeInput && generateSheetButton) {
         console.log("MOCK_APP_DEBUG: All inputs and button found. Setting values and listener.");
         numDigitsInput.value = String(initialDigits); // Ensure string assignment
         numProblemsInput.value = String(initialCount); // Ensure string assignment
         operationModeInput.value = initialMode;
-        toggleSettings(initialMode);
-
 
         generateSheetButton.addEventListener('click', () => {
+            let digits = parseInt(numDigitsInput.value, 10);
+            let count = parseInt(numProblemsInput.value, 10);
             let mode = operationModeInput.value;
 
-            if (mode === 'multiplication') {
-                const percentHintsInput = document.getElementById('percent-hints');
-                const multiplicatorRangeInput = document.getElementById('multiplicator-range');
-
-                const percentHints = parseInt(percentHintsInput.value, 10);
-                const multiplicatorRange = multiplicatorRangeInput.value;
-
-                displayProblems(null, null, mode, { percentHints, multiplicatorRange });
-            } else {
-                let digits = parseInt(numDigitsInput.value, 10);
-                let count = parseInt(numProblemsInput.value, 10);
-
-                if (mode === "multiplication") {
-                    if (digits < 2 || digits > 4) {
-                        digits = 2;
-                        numDigitsInput.value = String(digits);
-                    }
-                } else {
-                    if (digits !== 3 && digits !== 4) {
-                        digits = 3;
-                        numDigitsInput.value = String(digits);
-                    }
+            // Validate and default if necessary
+            if (mode === "multiplication") {
+                if (digits < 2 || digits > 4) { // Valid for mult: 2, 3, 4
+                    digits = 2; // Default for mult if out of range (e.g. if user typed 1 or 5)
+                    numDigitsInput.value = String(digits);
                 }
-
-                if (count < 1) {
-                    count = 1;
-                    numProblemsInput.value = count;
+            } else { // For addition, subtraction, mixed (which defaults to add/sub rules for digits)
+                if (digits !== 3 && digits !== 4) {
+                    digits = 3; // Default for add/sub if out of range
+                    numDigitsInput.value = String(digits);
                 }
-
-                displayProblems(count, digits, mode);
             }
 
+            if (count < 1) {
+                count = 1;
+                numProblemsInput.value = count; // Correct input field if invalid
+            }
+            
+            // Optional: Update URL query parameters
+            // const newUrl = `${window.location.pathname}?digits=${digits}&count=${count}&mode=${mode}`;
+            // window.history.pushState({ path: newUrl }, '', newUrl);
+
+            displayProblems(count, digits, mode);
             console.log("MOCK_APP_DEBUG: displayProblems called from button click.");
 
-            // const configurationSection = document.getElementById('configuration-section');
-            // if (configurationSection) {
-            //     configurationSection.classList.add('hidden');
-            // }
+            const configurationSection = document.getElementById('configuration-section');
+            if (configurationSection) {
+                configurationSection.classList.add('hidden');
+            }
         });
     } else {
         console.warn('MOCK_APP_DEBUG: WARN - Configuration input fields or button not found. Using defaults or URL params for initial generation.');
@@ -303,16 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial call to display problems
     console.log("MOCK_APP_DEBUG: Calling initial displayProblems with:", initialCount, initialDigits, initialMode);
-    if (initialMode === 'multiplication') {
-        const percentHintsInput = document.getElementById('percent-hints');
-        const multiplicatorRangeInput = document.getElementById('multiplicator-range');
-
-        const percentHints = parseInt(percentHintsInput.value, 10);
-        const multiplicatorRange = multiplicatorRangeInput.value;
-
-        displayProblems(null, null, initialMode, { percentHints, multiplicatorRange });
-    } else {
-        displayProblems(initialCount, initialDigits, initialMode);
-    }
+    displayProblems(initialCount, initialDigits, initialMode);
     console.log("MOCK_APP_DEBUG: app.js DOMContentLoaded callback FINISHED");
 });
