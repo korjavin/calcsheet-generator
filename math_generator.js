@@ -214,50 +214,6 @@ export function generateMultiplicationProblem(numDigits) {
   return { operand1, operand2, product };
 }
 
-/**
- * Generates a multiplication table.
- * @param {number} min - The minimum multiplicator.
- * @param {number} max - The maximum multiplicator.
- * @param {number} percentHints - The percentage of cells to pre-fill with answers.
- * @returns {Array<Array<string>>} A 2D array representing the multiplication table.
- */
-export function generateMultiplicationTable(min, max, percentHints) {
-    const size = max - min + 1;
-    const table = Array(size + 1).fill(null).map(() => Array(size + 1).fill(''));
-
-    // Fill headers
-    table[0][0] = '×';
-    for (let i = 0; i < size; i++) {
-        table[0][i + 1] = min + i;
-        table[i + 1][0] = min + i;
-    }
-
-    // Fill body and collect possible hint locations
-    const hintLocations = [];
-    for (let i = 0; i < size; i++) {
-        for (let j = 0; j < size; j++) {
-            hintLocations.push([i + 1, j + 1]);
-        }
-    }
-
-    // Determine number of hints
-    const numHints = Math.floor(hintLocations.length * (percentHints / 100));
-
-    // Shuffle hint locations
-    for (let i = hintLocations.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [hintLocations[i], hintLocations[j]] = [hintLocations[j], hintLocations[i]];
-    }
-
-    // Add hints
-    for (let i = 0; i < numHints; i++) {
-        const [row, col] = hintLocations[i];
-        table[row][col] = (min + row - 1) * (min + col - 1);
-    }
-
-    return table;
-}
-
 // Example Usage (for testing - not part of the final deliverable for this task)
 /*
 console.log("Addition Problems:");
